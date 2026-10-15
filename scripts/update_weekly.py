@@ -63,6 +63,15 @@ def main():
   # On Monday use last complete calendar week; on other days also choose preceding completed week.
   this_monday=now.date()-timedelta(days=now.weekday());start=this_monday-timedelta(days=7);end=this_monday-timedelta(days=1)
   week_id=f'{start.isocalendar().year}-W{start.isocalendar().week:02d}'
+  # Editorial gate: RSS entries are candidates, never publish unverified English headlines.
+  candidates, failed = get_feeds(start,end)
+  pending_path=BASE/'data/pending_news.json'
+  pending={'week_id':week_id,'period':f'{start.isoformat()}–{end.isoformat()}','status':'候選待審｜未發布正式週報','review_required':['核對原始全文及日期','翻譯繁體中文標題','撰寫新聞重點結論','區分來源事實與技術推論','補上品保與研發建議'],'items':candidates,'feed_errors':failed}
+  print(f'{("DRY RUN" if args.dry_run else "PENDING REVIEW")}: {week_id}; {len(candidates)} RSS candidates; {len(failed)} errors; no unreviewed news published')
+  if not args.dry_run:
+    write_json(pending_path,pending)
+  for e in failed:print('WARN:',e,file=sys.stderr)
+  return
   path=BASE/'data/issues.json';data=read_json(path)
   if any(x.get('id')==week_id for x in data['editions']):print('Already published:',week_id);return
   news,failed=get_feeds(start,end)
