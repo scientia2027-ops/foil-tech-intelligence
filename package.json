@@ -1,0 +1,1 @@
+{"name":"foil-intelligence-reports","version":"1.0.0","private":true,"description":"Weekly printing foil intelligence and monthly Univacco-style reports","scripts":{"monthly":"node scripts/monthly.js"},"dependencies":{"pptxgenjs":"^3.12.0"}}
