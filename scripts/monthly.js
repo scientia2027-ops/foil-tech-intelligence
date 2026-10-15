@@ -14,9 +14,9 @@ function timeTaipei(){return new Date(new Date().toLocaleString('en-US',{timeZon
 function defaultMonth(){let d=timeTaipei(); d.setDate(1);d.setMonth(d.getMonth()-1);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')}
 const argv=process.argv.slice(2), idx=argv.indexOf('--month'),month=idx>=0&&argv[idx+1]&&argv[idx+1]!=='last'?argv[idx+1]:defaultMonth(),preview=argv.includes('--preview');
 if(!/^20\d\d-(0[1-9]|1[0-2])$/.test(month))throw Error('Need YYYY-MM month');
-const filtered=data.editions.filter(e=>(e.published||'').slice(0,7)===month).sort((a,b)=>b.published.localeCompare(a.published));
+const filtered=data.editions.filter(e=>(e.period||'').slice(0,7).replace('/','-')===month || (e.published||'').slice(0,7)===month).sort((a,b)=>b.published.localeCompare(a.published));
 const allNews=filtered.flatMap(x=>x.news||[]); const seen=new Set();let news=allNews.filter(n=>{let k=(n.title||'').toLowerCase().replace(/\W/g,'');if(seen.has(k))return false;seen.add(k);return true});
-const latest=filtered[0]||data.editions[0]||{};const comps=latest.competitors||[];const actions=latest.actions||[];const focus=latest.lesson||{};
+const trustedNews=news.filter(n=>!/待查核|尚待核實|RSS 標題/.test(n.type||'') && n.takeaway && n.url);news=trustedNews;const latest=filtered[0]||data.editions[0]||{};const comps=latest.competitors||[];const actions=latest.actions||[];const focus=latest.lesson||{};
 const src=(n)=>n&&n.url?n.url:'https://www.labelsandlabeling.com/';
 const pp=new pptxgen();pp.layout='LAYOUT_WIDE';pp.author='印刷與燙金箔技術情報中心';pp.subject='公開產業情報、技術應用、品保與研發決策';pp.title=`${month} 燙金箔技術情報${preview?'期中試刊':'月報'}`;pp.lang='zh-TW';pp.company='Univacco Technology Inc.';pp.theme={headFontFace:'Microsoft JhengHei',bodyFontFace:'Microsoft JhengHei',lang:'zh-TW'};
 const S=pp.ShapeType, C={b:'146EFF',d:'000082',black:'16213B',gray:'657188',pale:'F0F6FF',bg:'FFFFFF',line:'DFE8F6',warning:'C67524',green:'0B8975'};const W=13.333333,H=7.5;
@@ -50,7 +50,7 @@ function sourceTag(s,t,x,y,w){rounded(s,x,y,w,.32,'F0F6FF','F0F6FF');add(s,t,x+.
  add(s,'公開資料研究｜非產品規格或正式對外保證',6.04,5.90,6.5,.26,11.5,{color:'DCEBFF'});
  note(s,['https://www.kurz-world.com/en/solutions/embellishment-machines/']);}
 // 2 executive summary
-{const s=base('管理摘要｜三項值得採取的技術行動','數位裝飾、UV 固化與量測標準化，正在重新定義轉印品質的驗證需求');
+{const s=base('管理摘要｜三項值得採取的技術行動',''+month+' 的重要公開技術進展需結合材料驗證與品保決策');
  textCard(s,.61,1.84,3.9,2.6,'01｜數位印後裝飾','傳統與數位冷燙的接著模式可能不同，應避免直接套用單一材料規格。');
  textCard(s,4.72,1.84,3.9,2.6,'02｜UV 油墨與固化','新的油墨訴求提高固化與遷移管控重要性，需將客戶製程條件納入測試。');
  textCard(s,8.83,1.84,3.9,2.6,'03｜客戶使用檢驗','從固定位置的 L*／色差／缺陷判定，建立與實際印刷效果的關聯性。');
@@ -59,9 +59,9 @@ function sourceTag(s,t,x,y,w){rounded(s,x,y,w,.32,'F0F6FF','F0F6FF');add(s,t,x+.
  note(s,news.slice(0,6).map(src));}
 // 3 technical news
 {const s=base('技術發展｜數位冷燙與 UV 油墨','材料端的離型、接著與光學檢測，必須結合客戶上膠及固化條件評估');
- const a=news.find(x=>x.id==='n-xaar'||(x.brand||'').toLowerCase().includes('xaar')),b=news.find(x=>x.id==='n-sun'||(x.brand||'').toLowerCase().includes('sun chemical'));
- textCard(s,.62,1.83,6.0,3.35,a?'數位裝飾｜'+a.brand:'數位冷燙（技術背景）','設備可整合到現有印刷／後加工線，應注意印刷速度與數位上膠的轉印窗口。');
- textCard(s,6.80,1.83,5.9,3.35,b?'UV 柔版油墨｜'+b.brand:'UV 油墨與固化（技術背景）','快速固化與低遷移是產品訴求，但對特定燙箔與被印材的相容性仍須實驗證實。');
+ const a=news[0],b=news[1];
+ textCard(s,.62,1.83,6.0,3.35,a?'本月技術 01｜'+a.brand:'本月尚無足夠已核對新聞',a?(a.takeaway||a.description):'本月未蒐集到足夠可溯源的新聞，請避免推論技術趨勢。');
+ textCard(s,6.80,1.83,5.9,3.35,b?'本月技術 02｜'+b.brand:'本月未見第二項已核對消息',b?(b.takeaway||b.description):'未經來源核實之原始 RSS 不納入正式管理分析。');
  bullet(s,'技術驗證：上膠量 × 固化條件 × 速度，量測轉印率／L*／缺陷比例。',.82,5.45,11.6,.47,C.black,14);
  action(s,'👉 行動：研發與品保先制定跨材料、跨設備的冷燙應用參數測試卡。');note(s,[src(a),src(b)]);}
 // 4 QC standardization
@@ -80,7 +80,7 @@ function sourceTag(s,t,x,y,w){rounded(s,x,y,w,.32,'F0F6FF','F0F6FF');add(s,t,x+.
  action(s,'👉 決策：以「應用條件 × 轉印效果 × 檢驗方法」建立競品技術對照表，不做未經測試的優劣判定。');note(s,comps.map(x=>x.news_url).concat(comps.map(x=>x.url)));}
 // 6 substrate and environment
 {const s=base('材料與法規｜新被印材帶來相容性與證據需求','永續包裝相關材料發展，不能直接當作燙金箔可回收性或法規符合的證明');
- const n1=news.find(x=>x.id==='n-innovia'),n2=news.find(x=>x.id==='n-ppg');
+ const n1=news.find(x=>/永續|回收|阻隔/.test(x.category)),n2=news.find(x=>/基材|合成紙/.test(x.category));
  textCard(s,.64,1.83,5.94,2.45,'金屬化 BOPP 包裝薄膜','阻隔型金屬化薄膜與轉印裝飾箔用途不同，避免直接替換或簡化比較。');
  textCard(s,6.77,1.83,5.94,2.45,'生質來源合成紙','新型表面塗層／填料可能改變界面潤濕與轉印性，應建立應用條件資料。');
  rounded(s,.65,4.65,12.02,.98,'F8FAFE','E8EEF7');add(s,'區分三種證據',.87,4.76,2.35,.25,15,{bold:true,color:C.b});
