@@ -1,0 +1,43 @@
+name: Weekly foil intelligence refresh
+on:
+  schedule:
+    - cron: '30 0 * * 1'  # Every Monday 08:30 Asia/Taipei, 00:30 UTC
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Validation only (no website update or commit)'
+        required: false
+        type: boolean
+        default: true
+permissions:
+  contents: write
+jobs:
+  weekly-refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Update public news headlines and pre-authored technical lesson
+        env:
+          DRY_RUN: ${{ inputs.dry_run || 'false' }}
+        run: |
+          if [ "$DRY_RUN" = "true" ]; then
+            python scripts/update_weekly.py --dry-run
+          else
+            python scripts/update_weekly.py
+          fi
+      - name: Embed current JSON snapshot for offline preview
+        if: ${{ !inputs.dry_run }}
+        run: python scripts/embed_data.py
+      - name: Publish changed files
+        if: ${{ !inputs.dry_run }}
+        run: |
+          git config user.name "foil-intelligence-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/issues.json index.html
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: refresh weekly foil intelligence"
+            git push
+          fi
