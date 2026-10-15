@@ -34,6 +34,12 @@ jobs:
           else
             python scripts/update_weekly.py
           fi
+      - name: Generate verified-source Traditional Chinese analysis through OpenAI API
+        if: ${{ github.event_name != 'push' && inputs.dry_run != true }}
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_MODEL: gpt-5.6
+        run: python scripts/ai_weekly.py
       - name: Embed current JSON snapshot for offline preview
         if: ${{ github.event_name != 'push' && inputs.dry_run != true }}
         run: python scripts/embed_data.py
@@ -42,7 +48,7 @@ jobs:
         run: |
           git config user.name "foil-intelligence-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/issues.json data/pending_news.json index.html
+          git add data/issues.json data/pending_news.json data/audits/ index.html
           if ! git diff --cached --quiet; then
             git commit -m "chore: refresh weekly foil intelligence"
             git push
