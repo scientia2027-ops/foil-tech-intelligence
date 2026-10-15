@@ -278,6 +278,7 @@ def make_actions(raw, week_id):
 def main():
     ap=argparse.ArgumentParser()
     ap.add_argument("--dry-run",action="store_true",help="Validate local data and workflow without spending API credits")
+    ap.add_argument("--rehearsal",action="store_true",help="Run live AI research and save a draft in runner temp, never publish")
     args=ap.parse_args()
     start,end,week_id=week_dates()
     data_path=ROOT/"data/issues.json"
@@ -288,7 +289,7 @@ def main():
         assert db.get("editions") and (ROOT/"data/curriculum.json").exists()
         print(f"DRY RUN: {week_id} JSON and sources schema valid; no API call or site mutation")
         return
-    if any(i.get("id")==week_id for i in db["editions"]):
+    if not args.rehearsal and any(i.get("id")==week_id for i in db["editions"]):
         print(f"Already published: {week_id}")
         return
     if not os.environ.get("OPENAI_API_KEY"):
@@ -307,7 +308,12 @@ def main():
     audit={"week":week_id,"created":datetime.now(TZ).isoformat(),"web_sources":sorted(trusted),
            "selected_articles":len(news),"rejected":rejected,"mode":"AI-assisted; manual review recommended"}
     # Keep only public audit metadata, never raw model internals or API credentials.
-    write(ROOT/"data"/"audits"/(week_id+".json"),audit)
+    if not args.rehearsal:
+        write(ROOT/"data"/"audits"/(week_id+".json"),audit)
+    if args.rehearsal and not news:
+        out=Path(os.environ.get("RUNNER_TEMP", "/tmp"))/"foil-ai-rehearsal.json"
+        write(out,{"week":week_id,"news":[],"audit":audit,"status":"NO_ELIGIBLE_ARTICLES"})
+        print(f"REHEARSAL: zero eligible stories; rejected {len(rejected)}; audit saved to {out}")
     if not news:
         print("WARNING: no eligible sourced, dated Traditional Chinese news; skip publication",file=sys.stderr)
         return
@@ -327,6 +333,12 @@ def main():
        "reviewed_on":datetime.now(TZ).date().isoformat(),
        "ai_model":MODEL,"audit_file":f"data/audits/{week_id}.json"
     }
+    if args.rehearsal:
+        out=Path(os.environ.get("RUNNER_TEMP", "/tmp"))/"foil-ai-rehearsal.json"
+        write(out,{"week":week_id,"issue":issue,"audit":audit,"status":"DRAFT_FOR_REVIEW"})
+        print(f"REHEARSAL SUCCESS {week_id}: {len(news)} research stories; {len(rejected)} rejected; no public site changed")
+        for n in news:print("REVIEW:",n["date"],n["title"],n["url"])
+        return
     db["editions"].insert(0,issue)
     db["generated"]=issue["published"]
     write(data_path,db)
