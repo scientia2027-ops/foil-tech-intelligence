@@ -4,6 +4,167 @@
   "generated": "2026-10-15",
   "editions": [
     {
+      "id": "2026-W41",
+      "period": "2026/10/05–10/11",
+      "published": "2026-10-15",
+      "title": "2026-W41｜每週技術快訊",
+      "status": "自動快訊｜新聞原文待人工審核",
+      "headline": "主要印刷方式與冷燙工藝配置｜從技術新聞看產品應用",
+      "summary": "本期以公開 RSS 新聞標題整理為基礎；完整技術細節、競爭廠商宣稱及產品相容性均待查證。",
+      "news": [
+        {
+          "id": "4874099819008510723",
+          "date": "2026-10-08",
+          "category": "數位燙金",
+          "type": "RSS 標題｜尚待核實全文",
+          "level": "medium",
+          "brand": "PrintIndustry.news",
+          "title": "Eco3 Enters the Label Market with the Elio Press Line",
+          "source": "PrintIndustry.news",
+          "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxNTmRQekk5UTRZMHk5Y0tsdlp2bVRKMERjcjduZUVQTGFBUDZvZDVHNHNWcWxwVjVtWnhjZjc2OFZWTEpGUlVQUGRvUndCclRia2JRakE4aTZfUUJoZzRiSGl6YTM4ZGZzTTJFeGNwRkkxWGwwWFZOTVV0dWJENzFFMU9ORmJ4QlNmOFFqLU45VEgxVENWY1lYZnRNNjI?oc=5",
+          "description": "這是自動擷取的公開新聞標題與日期；尚未完整查核報導內容，請點閱原始來源。",
+          "impact": "待查核技術內容與應用條件後，再判斷對燙金箔材料、印刷或品質管理的具體影響。",
+          "verification": "僅標題、日期和來源資訊已自動擷取；不得視為完整技術分析。"
+        },
+        {
+          "id": "6088876930922759162",
+          "date": "2026-10-07",
+          "category": "數位燙金",
+          "type": "RSS 標題｜尚待核實全文",
+          "level": "medium",
+          "brand": "Vietnam.vn",
+          "title": "Tran Gia Printing - Providing fast and high-quality paper box printing solutions in Ho Chi Minh City.",
+          "source": "Vietnam.vn",
+          "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxNOHV1aHM1czJzdF9xUUx0Q3FCcGhkN3Jjemh5dWtCajRQOWljeWNoYUhkcFNvSGd3N3hucWZYcFlma3VYc01OTnNnVk5MdkY5blVpV3FQM3JMTjRwblh4VEVfSXhRTUliS0NoQWd1eGNsSzBaQzhjbjVfSXlHaWZmY0szVl9QbGMtZkN6MEltUnR6bnFGMWFBYmVxZE1ZdGVuQTJvNXJ2ZXR6OE9ndUhCdFZZanpfdw?oc=5",
+          "description": "這是自動擷取的公開新聞標題與日期；尚未完整查核報導內容，請點閱原始來源。",
+          "impact": "待查核技術內容與應用條件後，再判斷對燙金箔材料、印刷或品質管理的具體影響。",
+          "verification": "僅標題、日期和來源資訊已自動擷取；不得視為完整技術分析。"
+        }
+      ],
+      "competitors": [
+        {
+          "name": "LEONHARD KURZ",
+          "focus": "熱燙、冷轉印、數位 2D/3D 裝飾",
+          "updated": "2026-10-11",
+          "status": "本週未納入新公告",
+          "url": "https://www.kurz-world.com/en/solutions/embellishment-machines/",
+          "news_url": "https://www.loupe-americas.com/americas/loupe-americas-2026-sets-new-benchmark-label-and-package-printing-industry",
+          "detail": "2026 LOUPE Americas 報告提及 KURZ 與 Nilpeter 的套準箔材展示；其官網提供數位 2D/3D、冷轉印及熱燙設備解決方案。",
+          "gap": "對比數位上膠／套準條件下的薄膜離型與金屬光學表現。",
+          "new_this_week": false
+        },
+        {
+          "name": "API Foilmakers / API Transfer",
+          "focus": "熱燙、單張冷轉印、窄幅冷轉印、數位箔",
+          "updated": "2026-10-11",
+          "status": "本週未納入新公告",
+          "url": "https://www.apitransfer.com/en/home-en",
+          "news_url": "https://www.apitransfer.com/en/home-en",
+          "detail": "公開產品型錄涵蓋窄幅冷轉印、單張冷轉印及數位箔材產品，並提供對應應用技術。",
+          "gap": "建立應用情境與可印材類別比較表，避免只有牌號對牌號比較。",
+          "new_this_week": false
+        },
+        {
+          "name": "KATANI",
+          "focus": "金屬色、顏料型、全像、冷燙及特殊紋理箔",
+          "updated": "2026-10-11",
+          "status": "本週未納入新公告",
+          "url": "https://www.katani.co.jp/english/hotstamp",
+          "news_url": "https://www.katani.co.jp/english/hotstamp",
+          "detail": "公開產品頁展示 FINEFOIL、全像箔、冷燙箔、髮絲紋、半透鏡面等產品類別。",
+          "gap": "比較差異化外觀效果所需的客戶檢驗標準與基材相容性。",
+          "new_this_week": false
+        }
+      ],
+      "actions": [
+        {
+          "id": "2026-W41-A1",
+          "priority": "高",
+          "title": "設計材料／客戶印刷條件對照測試",
+          "basis": "主要印刷方式與冷燙工藝配置",
+          "hypothesis": "材料與印刷條件可能有交互作用",
+          "method": "固定兩種代表基材與材料批次，分層比較關鍵機台參數；量測轉印率、亮度、缺陷比例。",
+          "accept": "建立代表條件測試矩陣並重複確認，形成對外應用條件說明。",
+          "owner": "研發＋品保＋製程技術",
+          "state": "建議評估｜未經公司內部批准"
+        },
+        {
+          "id": "2026-W41-A2",
+          "priority": "高",
+          "title": "檢驗方式與客戶效果的一致性評估",
+          "basis": "主要印刷方式與冷燙工藝配置",
+          "hypothesis": "單一物性數據可能不足以解釋使用表現",
+          "method": "選 ≥30 件正常與異常樣品，固定視角／量測位置並執行盲測；比較屬性判定與數值指標。",
+          "accept": "完成一致性分析與漏判／誤判評估，提出方法改善建議。",
+          "owner": "品保＋研發",
+          "state": "建議評估｜未經公司內部批准"
+        },
+        {
+          "id": "2026-W41-A3",
+          "priority": "中",
+          "title": "技術情報與產品應用需求對照",
+          "basis": "主要印刷方式與冷燙工藝配置",
+          "hypothesis": "新工藝可能帶來新型材料 CTQ",
+          "method": "將本週技術對照預期應用情境、材料 CTQ、競品功能及可取得的驗證資源。",
+          "accept": "完成一頁式技術需求與驗證優先順序建議。",
+          "owner": "研發＋業務＋品保",
+          "state": "建議評估｜未經公司內部批准"
+        }
+      ],
+      "lesson": {
+        "number": 2,
+        "title": "主要印刷方式與冷燙工藝配置",
+        "subtitle": "每週系統化學習｜公開教材延伸與應用假設",
+        "duration": "約 20–30 分鐘",
+        "principle": "柔版、平版、凹版與數位印刷各有不同供墨、圖文形成及線上加工方式，冷燙單元的配置須依機台而定。",
+        "params": [
+          {
+            "name": "印刷方式",
+            "desc": "圖文網點、油墨量、速度與對位方式存在差異。"
+          },
+          {
+            "name": "UV 單元與剝離位置",
+            "desc": "不同機型的固化與剝離順序不相同。"
+          }
+        ],
+        "case": "相同箔在不同印刷廠表現不同，應先比較機型與工序，而不是直接判定批次。",
+        "verify": "完成印刷方式比較表，記錄設備、被印材、塗膠量及對位條件。",
+        "quiz": [
+          {
+            "q": "這堂課最需要控制的兩個印刷參數是什麼？",
+            "a": "請從上列關鍵參數中選擇兩項並說明原因；依不同工藝答案可能不同。"
+          },
+          {
+            "q": "遇到客戶使用異常，能直接斷定是燙金箔配方造成嗎？",
+            "a": "不能；須控制材料、被印材、設備及量測條件，並透過適當的試驗確認。"
+          },
+          {
+            "q": "本堂最適合建立哪一種記錄？",
+            "a": "完成印刷方式比較表，記錄設備、被印材、塗膠量及對位條件。"
+          }
+        ]
+      },
+      "background": [
+        {
+          "title": "LOUPE Americas 2026｜複合式印刷與套準箔材",
+          "date": "2026-09-28",
+          "url": "https://www.loupe-americas.com/americas/loupe-americas-2026-sets-new-benchmark-label-and-package-printing-industry"
+        },
+        {
+          "title": "歐盟 PPWR 實施與官方指引（非本週新規）",
+          "date": "2026-08-11",
+          "url": "https://environment.ec.europa.eu/news/new-eu-rules-packaging-enter-application-2026-08-11_en"
+        },
+        {
+          "title": "FSEA 轉印金屬裝飾紙材分選研究（非本週）",
+          "date": "2026-07-16",
+          "url": "https://www.loupe-americas.com/americas/second-new-study-now-available-through-fsea-has-taken-further-step-test-transfer-metallic-decorated"
+        }
+      ],
+      "editorial": "本週自動抓取新聞標題僅供追蹤，未經全文核實；請勿作為技術或公司聲明。",
+      "refresh_errors": []
+    },
+    {
       "id": "2026-W42-preview",
       "period": "2026/10/12–10/15",
       "published": "2026-10-15",
