@@ -1,0 +1,42 @@
+name: Monthly technical decision deck
+on:
+  schedule:
+    - cron: '30 1 1 * *'  # At 09:30 Taiwan time on the first of each month, build prior month
+  workflow_dispatch:
+    inputs:
+      month:
+        description: 'Month (YYYY-MM). Leave blank for last completed month.'
+        required: false
+        type: string
+permissions:
+  contents: write
+jobs:
+  monthly-pptx:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install PowerPoint generator
+        run: npm install --no-audit --no-fund
+      - name: Generate monthly report
+        env:
+          TARGET_MONTH: ${{ inputs.month }}
+        run: |
+          if [ -n "$TARGET_MONTH" ]; then
+            node scripts/monthly.js --month "$TARGET_MONTH"
+          else
+            node scripts/monthly.js --month last
+          fi
+      - name: Embed latest report links for offline preview
+        run: python scripts/embed_data.py
+      - name: Commit and publish PPTX
+        run: |
+          git config user.name "foil-intelligence-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add reports/ data/issues.json index.html
+          if ! git diff --cached --quiet; then
+            git commit -m "report: monthly foil intelligence deck"
+            git push
+          fi
