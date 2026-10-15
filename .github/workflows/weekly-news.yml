@@ -27,7 +27,7 @@ jobs:
           python-version: '3.12'
       - name: Update public news headlines and pre-authored technical lesson
         env:
-          DRY_RUN: ${{ (github.event_name == 'push' || inputs.dry_run) && 'true' || 'false' }}
+          DRY_RUN: ${{ ((github.event_name == 'push' && !contains(github.event.head_commit.message, '[publish-weekly-test]')) || (github.event_name == 'workflow_dispatch' && inputs.dry_run)) && 'true' || 'false' }}
         run: |
           if [ "$DRY_RUN" = "true" ]; then
             python scripts/update_weekly.py --dry-run
@@ -35,10 +35,10 @@ jobs:
             python scripts/update_weekly.py
           fi
       - name: Embed current JSON snapshot for offline preview
-        if: ${{ github.event_name != 'push' && inputs.dry_run != true }}
+        if: ${{ (github.event_name != 'push' && inputs.dry_run != true) || (github.event_name == 'push' && contains(github.event.head_commit.message, '[publish-weekly-test]')) }}
         run: python scripts/embed_data.py
       - name: Publish changed files
-        if: ${{ github.event_name != 'push' && inputs.dry_run != true }}
+        if: ${{ (github.event_name != 'push' && inputs.dry_run != true) || (github.event_name == 'push' && contains(github.event.head_commit.message, '[publish-weekly-test]')) }}
         run: |
           git config user.name "foil-intelligence-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
