@@ -32,3 +32,5 @@
 .quiz-answer p{margin:4px 0!important;font-size:12px!important}
 #quiz-feedback{margin-top:15px}
 @media(max-width:760px){.technical-grid{grid-template-columns:1fr}.technical-wide{grid-column:1}.interactive-quiz{padding:15px}.quiz-question{padding:12px 9px}}
+
+.news-takeaway{padding:12px 14px;background:#eef6ff;border-left:3px solid #176eff;border-radius:0 9px 9px 0;color:#244775;font-size:12px;line-height:1.85}.news-takeaway strong{color:#0959bc}
