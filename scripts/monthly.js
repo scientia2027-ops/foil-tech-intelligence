@@ -16,7 +16,7 @@ const argv=process.argv.slice(2), idx=argv.indexOf('--month'),month=idx>=0&&argv
 if(!/^20\d\d-(0[1-9]|1[0-2])$/.test(month))throw Error('Need YYYY-MM month');
 const filtered=data.editions.filter(e=>(e.period||'').slice(0,7).replace('/','-')===month || (e.published||'').slice(0,7)===month).sort((a,b)=>b.published.localeCompare(a.published));
 const allNews=filtered.flatMap(x=>x.news||[]); const seen=new Set();let news=allNews.filter(n=>{let k=(n.title||'').toLowerCase().replace(/\W/g,'');if(seen.has(k))return false;seen.add(k);return true});
-const trustedNews=news.filter(n=>!/待查核|尚待核實|RSS 標題/.test(n.type||'') && n.takeaway && n.url);news=trustedNews;const latest=filtered[0]||data.editions[0]||{};const comps=latest.competitors||[];const actions=latest.actions||[];const focus=latest.lesson||{};
+const trustedNews=news.filter(n=>!/待查核|尚待核實|RSS 標題/.test(n.type||'') && n.takeaway && n.url);news=trustedNews;const latest=filtered[0]||data.editions[0]||{};const comps=latest.competitors||[];const actions=latest.actions||[];const focus=latest.lesson||{};const first=news[0]||null;const leadConclusion=first?(first.takeaway||first.description):'本月未取得足夠可核實新訊；維持既有材料與應用驗證規劃';
 const src=(n)=>n&&n.url?n.url:'https://www.labelsandlabeling.com/';
 const pp=new pptxgen();pp.layout='LAYOUT_WIDE';pp.author='印刷與燙金箔技術情報中心';pp.subject='公開產業情報、技術應用、品保與研發決策';pp.title=`${month} 燙金箔技術情報${preview?'期中試刊':'月報'}`;pp.lang='zh-TW';pp.company='Univacco Technology Inc.';pp.theme={headFontFace:'Microsoft JhengHei',bodyFontFace:'Microsoft JhengHei',lang:'zh-TW'};
 const S=pp.ShapeType, C={b:'146EFF',d:'000082',black:'16213B',gray:'657188',pale:'F0F6FF',bg:'FFFFFF',line:'DFE8F6',warning:'C67524',green:'0B8975'};const W=13.333333,H=7.5;
@@ -58,7 +58,7 @@ function sourceTag(s,t,x,y,w){rounded(s,x,y,w,.32,'F0F6FF','F0F6FF');add(s,t,x+.
  action(s,'👉 決策：同意以「UV相容性、檢驗一致性、被印材資料庫」作為 3 項優先可行性評估。');
  note(s,news.slice(0,6).map(src));}
 // 3 technical news
-{const s=base('技術發展｜數位冷燙與 UV 油墨','材料端的離型、接著與光學檢測，必須結合客戶上膠及固化條件評估');
+{const s=base('技術發展｜本月兩項重要新聞',leadConclusion);
  const a=news[0],b=news[1];
  textCard(s,.62,1.83,6.0,3.35,a?'本月技術 01｜'+a.brand:'本月尚無足夠已核對新聞',a?(a.takeaway||a.description):'本月未蒐集到足夠可溯源的新聞，請避免推論技術趨勢。');
  textCard(s,6.80,1.83,5.9,3.35,b?'本月技術 02｜'+b.brand:'本月未見第二項已核對消息',b?(b.takeaway||b.description):'未經來源核實之原始 RSS 不納入正式管理分析。');
@@ -95,7 +95,7 @@ function sourceTag(s,t,x,y,w){rounded(s,x,y,w,.32,'F0F6FF','F0F6FF');add(s,t,x+.
  action(s,'👉 決策：請主管確認三個驗證主題的優先序、可用樣品與負責窗口。');note(s,news.slice(0,4).map(src));}
 // 8 teaching topic + roadmap
 {const s=base('持續學習｜技術情報需轉換成驗證能力','技術教學應聚焦客戶真正看見的轉印品質與材料檢驗的關聯性');
- rounded(s,.63,1.83,7.55,3.62,'F4F8FF','E1EBFA');add(s,'本期教學主題',.9,2.03,6.2,.29,14,{color:C.b,bold:true});add(s,focus.title||'冷燙工藝與品質',.9,2.47,6.85,.77,22,{bold:true,color:'1A406C'});
+ rounded(s,.63,1.83,7.55,3.62,'F4F8FF','E1EBFA');add(s,'本月延伸學習',.9,2.03,6.2,.29,14,{color:C.b,bold:true});add(s,focus.title||'冷燙工藝與品質',.9,2.47,6.85,.77,22,{bold:true,color:'1A406C'});
  add(s,focus.principle||'',.9,3.47,6.85,1.1,14,{color:'536783',valign:'top'});
  rounded(s,8.38,1.83,4.31,3.62);add(s,'每週標準學習循環',8.64,2.08,3.75,.33,17,{bold:true,color:C.b});
  ['了解技術原理與工藝條件','解讀新聞與競品應用','建立可能的品質風險假設','以 DOE / MSA / 使用測試驗證'].forEach((t,i)=>{add(s,`${i+1}. ${t}`,8.66,2.65+i*.51,3.73,.34,13,{color:'455F82'})});
