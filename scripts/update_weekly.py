@@ -118,6 +118,51 @@ def get_rss(start, end):
     return list(unique.values())[:MAX_ITEMS], errors
 
 
+
+def fallback_bing(start,end):
+    """Free Bing News RSS fallback; metadata are unverified leads."""
+    results,errors=[],[]
+    for query,cat in [("hot stamping foil printing","熱燙"),("cold foil print packaging","冷燙"),("digital embellishment labels","數位裝飾"),("flexographic printing equipment","印刷設備")]:
+        link="https://www.bing.com/news/search?"+urllib.parse.urlencode({"q":query,"format":"rss","setlang":"en-US"})
+        try:
+            request=urllib.request.Request(link,headers={"User-Agent":"Mozilla/5.0"})
+            with urllib.request.urlopen(request,timeout=20) as response:
+                xml=ET.fromstring(response.read(1200000))
+            for node in xml.findall(".//item")[:30]:
+                title=clean(node.findtext("title"))
+                url=clean(node.findtext("link"))
+                if not valid_title(title) or not url.startswith("https://"):continue
+                try: dt=parsedate_to_datetime(clean(node.findtext("pubDate"))).astimezone(TZ).date()
+                except Exception:continue
+                if not start<=dt<=end:continue
+                results.append({"id":"bing-"+hashlib.sha256(url.encode()).hexdigest()[:14],
+                    "date":dt.isoformat(),"category":cat,"source":"Bing News RSS","url":url,
+                    "original_title":title,"title_zh":"","translation_status":"待機器翻譯",
+                    "review_status":"待人工查核原文",
+                    "verification":"Bing RSS metadata only; article dates and claims must be verified."})
+        except Exception as exc:errors.append("Bing "+cat+": "+str(exc)[:100])
+    return results,errors
+
+def historical_leads(start,end):
+    """Existing published records for editor reference only, never new discoveries."""
+    path=ROOT/"data/issues.json"
+    if not path.exists():return []
+    try:
+        editions=read(path)["editions"];out=[]
+        for edition in editions:
+            for n in edition.get("news",[]):
+                try:dt=datetime.strptime(str(n.get("date","")),"%Y-%m-%d").date()
+                except ValueError:continue
+                if not start<=dt<=end or not str(n.get("url","")).startswith("https://"):continue
+                out.append({"id":"history-"+str(n.get("id","")),"date":dt.isoformat(),
+                    "category":n.get("category","印刷"),"source":n.get("source","歷史週報"),"url":n["url"],
+                    "original_title":n.get("original_title") or n.get("title",""),
+                    "title_zh":n.get("title",""),"translation_status":"沿用已刊登中文標題",
+                    "review_status":"已發布歷史資料｜僅供重新審查，不是新新聞",
+                    "verification":"Previously published edition, not newly fetched RSS."})
+        return out
+    except Exception:return []
+
 class OfflineTranslator:
     """Argos Translate en->zh, OpenCC Simplified->Traditional/Taiwan.
     If model download fails, leave English visible as original, not a fake translation.
@@ -163,6 +208,20 @@ def main():
     args = p.parse_args()
     start, end, week_id = week_range()
     items, errors = get_rss(start, end)
+    if not items:
+        errors.append("Google News RSS returned zero usable headlines from all seven queries")
+        extra_items, extra_errors = fallback_bing(start,end)
+        items.extend(extra_items)
+        errors.extend(extra_errors)
+    if not items:
+        items=historical_leads(start,end)
+        if items: errors.append("Only historical reference records found; these are NOT new RSS news")
+    seen=set();unique=[]
+    for item in items:
+        u=item["url"].split("?")[0]
+        if u not in seen:
+            seen.add(u);unique.append(item)
+    items=unique[:MAX_ITEMS]
     translator = None
     if items and not args.no_translate:
         translator = OfflineTranslator()
@@ -182,8 +241,8 @@ def main():
         "week_id": week_id,
         "period": f"{start.isoformat()}–{end.isoformat()}",
         "collected_at": datetime.now(TZ).isoformat(timespec="seconds"),
-        "status": "RSS 候選待審｜非正式週報",
-        "source_method": "Google News RSS (free)",
+        "status": "RSS 候選待審｜非正式週報" if any(not n["id"].startswith("history-") for n in items) else "未找到新新聞｜歷史資料僅供參考",
+        "source_method": "Google News RSS / Bing News RSS / already published historical references (free)",
         "translation_method": "Argos Translate en-zh + OpenCC 繁體中文（若模型可用）",
         "items": items,
         "errors": errors,
