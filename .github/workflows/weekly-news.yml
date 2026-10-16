@@ -24,7 +24,8 @@ jobs:
           python-version: '3.12'
       - name: Install free local translation tools
         if: ${{ github.event_name != 'push' && !inputs.no_translate }}
-        run: pip install --disable-pip-version-check argostranslate opencc-python-reimplemented || echo 'Translation tools unavailable: preserving English original titles'
+        run: |
+          pip install --disable-pip-version-check argostranslate opencc-python-reimplemented || echo 'Offline translator unavailable; RSS collection continues.'
       - name: Collect RSS candidates
         env:
           SKIP_TRANSLATE: ${{ github.event_name == 'push' || inputs.no_translate }}
