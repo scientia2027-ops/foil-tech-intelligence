@@ -1,0 +1,16 @@
+{
+  "week_id": "2026-W41",
+  "period": "2026-10-05–2026-10-11",
+  "collected_at": "2026-10-16T12:19:57+08:00",
+  "status": "RSS 候選待審｜非正式週報",
+  "source_method": "Google News RSS (free)",
+  "translation_method": "Argos Translate en-zh + OpenCC 繁體中文（若模型可用）",
+  "items": [],
+  "errors": [],
+  "review_steps": [
+    "逐一開啟原始報導，確認日期、產品型號和可核實事實",
+    "校對繁體中文標題，去除不相關或重複消息",
+    "利用 ChatGPT 撰寫重點結論、工程風險及品質驗證提案",
+    "人工審核並以 GitHub Actions 匯入正式週報"
+  ]
+}
