@@ -1,55 +1,42 @@
-name: Weekly foil intelligence refresh
+name: Weekly free RSS and preliminary Chinese translation
 on:
-  # When this workflow configuration changes, automatically perform a safe dry-run.
-  push:
-    branches:
-      - main
-    paths:
-      - '.github/workflows/weekly-news.yml'
   schedule:
-    - cron: '30 0 * * 1'  # Every Monday 08:30 Asia/Taipei, 00:30 UTC
+    - cron: '30 0 * * 1'
   workflow_dispatch:
     inputs:
-      dry_run:
-        description: 'Validation only (no website update or commit)'
-        required: false
+      no_translate:
+        description: 'Skip offline machine translation (faster)'
         type: boolean
-        default: true
+        default: false
 permissions:
   contents: write
 jobs:
-  weekly-refresh:
+  collect:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Collect RSS candidates for Traditional Chinese editorial review
+      - name: Install free local translation tools
+        if: ${{ !inputs.no_translate }}
+        run: pip install --disable-pip-version-check argostranslate opencc-python-reimplemented
+      - name: Collect RSS candidates
         env:
-          DRY_RUN: ${{ (github.event_name == 'push' || inputs.dry_run) && 'true' || 'false' }}
+          SKIP_TRANSLATE: ${{ inputs.no_translate }}
         run: |
-          if [ "$DRY_RUN" = "true" ]; then
-            python scripts/update_weekly.py --dry-run
+          if [ "$SKIP_TRANSLATE" = "true" ]; then
+            python scripts/update_weekly.py --no-translate
           else
             python scripts/update_weekly.py
           fi
-      - name: Generate verified-source Traditional Chinese analysis through OpenAI API
-        if: ${{ github.event_name != 'push' && inputs.dry_run != true }}
-        env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          OPENAI_MODEL: gpt-5.6
-        run: python scripts/ai_weekly.py
-      - name: Embed current JSON snapshot for offline preview
-        if: ${{ github.event_name != 'push' && inputs.dry_run != true }}
-        run: python scripts/embed_data.py
-      - name: Publish changed files
-        if: ${{ github.event_name != 'push' && inputs.dry_run != true }}
+      - name: Commit review queue only
         run: |
           git config user.name "foil-intelligence-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/issues.json data/pending_news.json data/audits/ index.html
+          git add data/pending_news.json
           if ! git diff --cached --quiet; then
-            git commit -m "chore: refresh weekly foil intelligence"
+            git commit -m "data: collect free RSS news candidates"
             git push
           fi
