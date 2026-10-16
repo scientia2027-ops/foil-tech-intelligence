@@ -5,13 +5,15 @@ on:
       - main
     paths:
       - 'index.html'
+      - 'editor.html'
       - 'assets/**'
       - 'data/**'
       - 'reports/**'
       - '.github/workflows/deploy-site.yml'
   workflow_run:
     workflows:
-      - Weekly foil intelligence refresh
+      - Weekly free RSS and preliminary Chinese translation
+      - Import reviewed weekly intelligence
       - Monthly technical decision deck
     types:
       - completed
@@ -40,7 +42,7 @@ jobs:
       - name: Stage website-only files
         run: |
           mkdir -p public
-          cp index.html .nojekyll public/
+          cp index.html editor.html .nojekyll public/
           cp -R assets data reports public/
       - name: Upload website to Pages
         uses: actions/upload-pages-artifact@v3
