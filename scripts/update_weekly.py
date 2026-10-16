@@ -28,13 +28,15 @@ FEEDS = [
 ]
 EXCLUDE = ("football", "hockey", "bitcoin", "stock market", "court", "police",
            "investment advice", "gold price", "real estate", "print on demand",
-           "printing services in", "high-quality printing solutions in")
+           "printing services in", "high-quality printing solutions in",
+           "providing fast and high-quality", "local printing company")
 RELEVANCE = ("foil", "stamping", "embellish", "flexo", "label press",
              "printing press", "printing equipment", "holograph", "gravure",
              "offset", "uv ink", "uv-cur", "print inspection", "laminat",
              "packaging material", "substrate", "metallic", "packaging printing",
              "printing technology", "printing industry", "printbar",
-             "printing ink", "colour management", "color management")
+             "printing ink", "colour management", "color management",
+             "label market", "label printing", "label finisher", "press line", "printing solutions")
 MAX_ITEMS = 14
 
 
