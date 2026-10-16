@@ -2,11 +2,74 @@
   "week_id": "2026-W41",
   "period": "2026-10-05–2026-10-11",
   "collected_at": "2026-10-16T12:29:30+08:00",
-  "status": "RSS 候選待審｜非正式週報",
-  "source_method": "Google News RSS (free)",
+  "status": "未抓取到新新聞｜顯示已發布 W41 歷史資料（非新候選）",
+  "source_method": "Historical published W41 records; Google News RSS returned 0; Bing fallback future runs",
   "translation_method": "Argos Translate en-zh + OpenCC 繁體中文（若模型可用）",
-  "items": [],
-  "errors": [],
+  "items": [
+    {
+      "id": "history-w41-eco3",
+      "date": "2026-10-06",
+      "category": "數位與複合式印刷",
+      "source": "ECO3 官方公告（10/6）",
+      "url": "https://eco3.com/news/elio-digital-label-printer-press-release",
+      "original_title": "ECO3 enters the digital label market with ELIO",
+      "title_zh": "ECO3 推出 ELIO 數位標籤印刷機，複合機型可整合柔版與冷燙加工",
+      "translation_status": "沿用已刊登中文標題",
+      "review_status": "已發布歷史資料｜僅供參考，不是新擷取新聞",
+      "verification": "此為網站既有 W41 已刊登紀錄，非本次 RSS 自動抓取成果。"
+    },
+    {
+      "id": "history-w41-hontec",
+      "date": "2026-10-08",
+      "category": "熱燙與印後加工",
+      "source": "Labels & Labeling",
+      "url": "https://www.labelsandlabeling.com/labels/labels/labels/labels/labels/news/finishing-embellishment/grafivedras-installs-hontec-label-finisher",
+      "original_title": "Grafivedras installs Hontec label finisher",
+      "title_zh": "葡萄牙標籤廠導入 Hontec MPX350，整合熱燙、壓凸與模切加工",
+      "translation_status": "沿用已刊登中文標題",
+      "review_status": "已發布歷史資料｜僅供參考，不是新擷取新聞",
+      "verification": "此為網站既有 W41 已刊登紀錄，非本次 RSS 自動抓取成果。"
+    },
+    {
+      "id": "history-w41-holo",
+      "date": "2026-10-08",
+      "category": "冷燙與全像應用",
+      "source": "UNIVACCO 官網案例",
+      "url": "https://www.univacco.com/news/Gin-Label-Design-with-Transparent-Holographic-Cold-Transfer.html",
+      "original_title": "Gin Label Design with Transparent Holographic Cold Transfer",
+      "title_zh": "岱稜透明全像冷燙酒標案例：保留底圖細節並增加視角光學效果",
+      "translation_status": "沿用已刊登中文標題",
+      "review_status": "已發布歷史資料｜僅供參考，不是新擷取新聞",
+      "verification": "此為網站既有 W41 已刊登紀錄，非本次 RSS 自動抓取成果。"
+    },
+    {
+      "id": "history-w41-mark-andy",
+      "date": "2026-10-08",
+      "category": "印刷設備",
+      "source": "Labels & Labeling",
+      "url": "https://www.labelsandlabeling.com/labels/news/conventional-printing/mark-andy-shows-productivity-loupe",
+      "original_title": "Mark Andy shows productivity at Loupe",
+      "title_zh": "Mark Andy 展示柔版與數位複合印刷機，強調高速檢測及產線整合",
+      "translation_status": "沿用已刊登中文標題",
+      "review_status": "已發布歷史資料｜僅供參考，不是新擷取新聞",
+      "verification": "此為網站既有 W41 已刊登紀錄，非本次 RSS 自動抓取成果。"
+    },
+    {
+      "id": "history-w41-ruey",
+      "date": "2026-10-07",
+      "category": "柔版與製版技術",
+      "source": "Labels & Labeling",
+      "url": "https://www.labelsandlabeling.com/labels/labels/news/plates-platemaking/ruey-chang-expands-ecg",
+      "original_title": "Ruey Chang expands ECG",
+      "title_zh": "台灣包裝印刷廠擴充 ECG 柔版產線，導入自動化製版與新印刷設備",
+      "translation_status": "沿用已刊登中文標題",
+      "review_status": "已發布歷史資料｜僅供參考，不是新擷取新聞",
+      "verification": "此為網站既有 W41 已刊登紀錄，非本次 RSS 自動抓取成果。"
+    }
+  ],
+  "errors": [
+    "Google News RSS seven queries returned zero raw articles in diagnostic run; historical references shown until next successful collection."
+  ],
   "review_steps": [
     "逐一開啟原始報導，確認日期、產品型號和可核實事實",
     "校對繁體中文標題，去除不相關或重複消息",
