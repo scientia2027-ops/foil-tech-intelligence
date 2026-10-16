@@ -1,8 +1,5 @@
 name: Weekly free RSS and preliminary Chinese translation
 on:
-  push:
-    branches: [main]
-    paths: ['.github/workflows/weekly-news.yml']
   schedule:
     - cron: '30 0 * * 1'
   workflow_dispatch:
@@ -26,12 +23,12 @@ jobs:
         if: ${{ github.event_name == 'push' }}
         run: python scripts/diagnose_rss.py
       - name: Install free local translation tools
-        if: ${{ github.event_name != 'push' && !inputs.no_translate }}
+        if: ${{ !inputs.no_translate }}
         run: |
           pip install --disable-pip-version-check argostranslate opencc-python-reimplemented || echo 'Offline translator unavailable; RSS collection continues.'
       - name: Collect RSS candidates
         env:
-          SKIP_TRANSLATE: ${{ github.event_name == 'push' || inputs.no_translate }}
+          SKIP_TRANSLATE: ${{ inputs.no_translate }}
         run: |
           if [ "$SKIP_TRANSLATE" = "true" ]; then
             python scripts/update_weekly.py --no-translate
