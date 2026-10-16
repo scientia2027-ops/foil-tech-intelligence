@@ -16,8 +16,8 @@ const argv=process.argv.slice(2), idx=argv.indexOf('--month'),month=idx>=0&&argv
 if(!/^20\d\d-(0[1-9]|1[0-2])$/.test(month))throw Error('Need YYYY-MM month');
 const filtered=data.editions.filter(e=>(e.period||'').slice(0,7).replace('/','-')===month || (e.published||'').slice(0,7)===month).sort((a,b)=>b.published.localeCompare(a.published));
 const allNews=filtered.flatMap(x=>x.news||[]); const seen=new Set();let news=allNews.filter(n=>{let k=(n.title||'').toLowerCase().replace(/\W/g,'');if(seen.has(k))return false;seen.add(k);return true});
-const trustedNews=news.filter(n=>!/待查核|尚待核實|RSS 標題/.test(n.type||'') && n.takeaway && n.url);news=trustedNews;const latest=filtered[0]||data.editions[0]||{};const comps=latest.competitors||[];const actions=latest.actions||[];const focus=latest.lesson||{};const first=news[0]||null;const leadConclusion=first?(first.takeaway||first.description):'本月未取得足夠可核實新訊；維持既有材料與應用驗證規劃';
-const src=(n)=>n&&n.url?n.url:'https://www.labelsandlabeling.com/';
+const trustedNews=news.filter(n=>!/待查核|尚待核實|RSS 標題/.test(n.type||'') && n.takeaway && n.url);news=trustedNews;const latest=filtered[0]||{};const comps=latest.competitors||[];const actions=latest.actions||[];const focus=latest.lesson||{};const hasMonthlyData=news.length>0;const first=news[0]||null;const leadConclusion=first?(first.takeaway||first.description):'本月尚無已審核的新消息；資料不足，不推論本月產業趨勢';
+const src=(n)=>n&&n.url?n.url:'';
 const pp=new pptxgen();pp.layout='LAYOUT_WIDE';pp.author='印刷與燙金箔技術情報中心';pp.subject='公開產業情報、技術應用、品保與研發決策';pp.title=`${month} 燙金箔技術情報${testMode?'系統測試':preview?'期中試刊':'月報'}`;pp.lang='zh-TW';pp.company='Univacco Technology Inc.';pp.theme={headFontFace:'Microsoft JhengHei',bodyFontFace:'Microsoft JhengHei',lang:'zh-TW'};
 const S=pp.ShapeType, C={b:'146EFF',d:'000082',black:'16213B',gray:'657188',pale:'F0F6FF',bg:'FFFFFF',line:'DFE8F6',warning:'C67524',green:'0B8975'};const W=13.333333,H=7.5;
 const coverPath=path.join(root,'assets/univacco_cover_background.png'),whiteLogo=path.join(root,'assets/univacco_white_logo.png');
@@ -114,5 +114,5 @@ const filename=`${month}_技術情報_${testMode?'系統測試':preview?'期中�
 fs.mkdirSync(path.dirname(output),{recursive:true});
 pp.writeFile({fileName:output}).then(()=>{
   console.log('WROTE',output,'slides',slides);
-  if(!preview){data.reports=data.reports||[];const title=testMode?`${month} 技術情報｜系統測試（非正式報告）`:`${month} 技術情報｜月度管理報告`;const entry={title,file:`reports/${filename}`,status:testMode?'系統測試':'月報','date':new Date().toISOString().slice(0,10),month};data.reports=data.reports.filter(x=>testMode?x.file!==entry.file:(x.month!==month||x.status==='期中試刊'));data.reports.unshift(entry);fs.writeFileSync(database,JSON.stringify(data,null,2));}
+  if(!preview){data.reports=data.reports||[];const title=testMode?`${month} 技術情報｜系統測試（非正式報告）`:`${month} 技術情報｜${hasMonthlyData?'月度管理報告':'本月無已審核資料（資料不足）'}`;const entry={title,file:`reports/${filename}`,status:testMode?'系統測試':hasMonthlyData?'月報':'資料不足','date':new Date().toISOString().slice(0,10),month};data.reports=data.reports.filter(x=>testMode?x.file!==entry.file:(x.month!==month||x.status==='期中試刊'));data.reports.unshift(entry);fs.writeFileSync(database,JSON.stringify(data,null,2));}
 }).catch(e=>{console.error(e);process.exit(1)});
