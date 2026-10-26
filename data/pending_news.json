@@ -1,25 +1,21 @@
 {
-  "week_id": "2026-W42",
-  "period": "2026-10-12–2026-10-18",
-  "collected_at": "2026-10-19T13:08:39+08:00",
-  "status": "RSS 候選待審｜非正式週報",
+  "week_id": "2026-W43",
+  "period": "2026-10-19–2026-10-25",
+  "collected_at": "2026-10-26T13:12:43+08:00",
+  "status": "未找到新新聞｜歷史資料僅供參考",
   "source_method": "Google News RSS / Bing News RSS / already published historical references (free)",
   "translation_method": "Argos Translate en-zh + OpenCC 繁體中文（若模型可用）",
-  "items": [
-    {
-      "id": "rss-0a83bf90e85eb5",
-      "date": "2026-10-14",
-      "category": "印刷與品質",
-      "source": "Packaging South Asia",
-      "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxQYU0xV0ZKYjNhb192dDVqWlFDSUNwa1htWUNRX3hZY3BqMGJ0a2xCRFhxdzlIaXo4VzV5d2t5SVRnNG1tOHZkS05GRmt6anZtc1lteG9nbDRtTmpfNG9JN19zaVZDT3VKZW00bkhWdm1Ua0hpUW03X0FPSTlwYW1KcGFJZC0?oc=5",
-      "original_title": "Eco3 enters digital label market",
-      "title_zh": "Eco3進入了數字標籤市場",
-      "translation_status": "免費離線機器初譯｜待人工校對",
-      "review_status": "待人工查核原文",
-      "verification": "RSS 僅為新聞候選；尚未核對原文、技術數據或來源宣稱。"
-    }
+  "items": [],
+  "errors": [
+    "hot stamping foil printing labels packaging: HTTP Error 503: Service Unavailable",
+    "cold foil transfer flexographic printing: HTTP Error 503: Service Unavailable",
+    "digital embellishment digital foil printing: HTTP Error 503: Service Unavailable",
+    "LEONHARD KURZ foil embossing labels: HTTP Error 503: Service Unavailable",
+    "API Foilmakers transfer foil packaging: HTTP Error 503: Service Unavailable",
+    "KATANI foil hot stamping: HTTP Error 503: Service Unavailable",
+    "flexographic UV ink inline inspection label press: HTTP Error 503: Service Unavailable",
+    "Google News RSS returned zero usable headlines from all seven queries"
   ],
-  "errors": [],
   "review_steps": [
     "逐一開啟原始報導，確認日期、產品型號和可核實事實",
     "校對繁體中文標題，去除不相關或重複消息",
