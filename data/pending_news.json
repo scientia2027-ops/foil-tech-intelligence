@@ -1,14 +1,49 @@
 {
-  "week_id": "2026-W44",
-  "period": "2026-10-26–2026-11-01",
-  "collected_at": "2026-11-02T14:40:42+08:00",
-  "status": "未找到新新聞｜歷史資料僅供參考",
+  "week_id": "2026-W45",
+  "period": "2026-11-02–2026-11-08",
+  "collected_at": "2026-11-09T15:04:00+08:00",
+  "status": "RSS 候選待審｜非正式週報",
   "source_method": "Google News RSS / Bing News RSS / already published historical references (free)",
   "translation_method": "Argos Translate en-zh + OpenCC 繁體中文（若模型可用）",
-  "items": [],
-  "errors": [
-    "Google News RSS returned zero usable headlines from all seven queries"
+  "items": [
+    {
+      "id": "rss-4fdfc140572f0e",
+      "date": "2026-11-06",
+      "category": "熱燙與裝飾",
+      "source": "Labels & Labeling",
+      "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxNSFNzaVZ5clFLbTd5MlZMZ2JPR3FKVHVwSVptZTFtMkg2NXBFR05VVkp1OFdkS0prRGVhZ1RUOUoxaHFqY244eUtQZGRMNHNPWXBTMGV4UEV6a2hiek9uOUFKWk03dTVKUHBlVldUdVRXVHZ3OVVTcHF4clhISVRDTU5BR0pwbjJCMVJtSElfOFdBeVZ0cDV6Wjc1Y2h2T3JMU2t4XzNJT0E0UQ?oc=5",
+      "original_title": "Spande shows S5 Series flexo at Loupe South China",
+      "title_zh": "斯潘德在南中國盧佩展示S5系列的彈性",
+      "translation_status": "免費離線機器初譯｜待人工校對",
+      "review_status": "待人工查核原文",
+      "verification": "RSS 僅為新聞候選；尚未核對原文、技術數據或來源宣稱。"
+    },
+    {
+      "id": "rss-f560337952f0f6",
+      "date": "2026-11-06",
+      "category": "印刷與品質",
+      "source": "Labels & Labeling",
+      "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxPSXNRZnhLVlRBTDI1TVk0MURnSzU3ZGp1S3VaQ3V6N3lycUZaXzdScFlnajM2QUFZSVRzMnZkVlpqUWpjczN5aFFiOGw5TFhLeDZaVkxVWFFnU3NmWWNlZWRoME8xTEJZcnBJc2J4OU9QMUVlZjlMS2ozWkx3WS1EaS1EdnBaVHJhRkI0?oc=5",
+      "original_title": "Experts launch algae UV ink",
+      "title_zh": "專家推出紫外線墨水",
+      "translation_status": "免費離線機器初譯｜待人工校對",
+      "review_status": "待人工查核原文",
+      "verification": "RSS 僅為新聞候選；尚未核對原文、技術數據或來源宣稱。"
+    },
+    {
+      "id": "rss-24cd8bcc2f6e02",
+      "date": "2026-11-03",
+      "category": "數位燙金",
+      "source": "the packman",
+      "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxNdGlKWXJvQzNRU21sR1NFQjItYzNPallTVVc0eW5SZ1NkUFJETERCUHRJSUljSXBpRDhaM3c0a1h1YnQ1RExQV1paVDQ4WnRhTHFYTndCUFpEaDIyTjlnbTA3M1BPQmJKRlU2Vk04eG5TSWZibFNTdkhfN255WjhpVjdtRmVEdjVoMlBHUnVRWTUxbWFsTFlnUG5ubGpPcXVoZG5rc01FS2tod1h5U1FjZ2Z3NNIBuAFBVV95cUxPUlNKODNrcXVEbExYYnp1dklZck5QSDl3TkJkcEx6WGU5VEYzVlZMaWFJcHI5UmhfdXR4OW9VemNHZkp1WmdQYXZJNWNOMElHYkwxUVBkUDI2MU5WMmZDSEJRREFLbUJ2alJBQ1hlbXIyMlM0MjdVVFg3bWxJOG9tbnk1NGlSSGtrQ3h2d3NQdW93Q3BPZEo1YWwwTnFFNjlPNWY4X29DSE03X1B1NWpxOUF0NzhCTnZX?oc=5",
+      "original_title": "Kurz India Showcases Foil Embellishment And Digital Stamping Solutions At LOUPE India 2026 - THE PACKMAN",
+      "title_zh": "Kurz India Showcases Foil Embellishment and Digital Stamping Solutions at LOUPE India 2026 - The PACKMAN 網際網路檔案館的存檔,存檔日期2013-12-20. 網際網路檔案館的存檔,存檔日期2013-03-02.",
+      "translation_status": "免費離線機器初譯｜待人工校對",
+      "review_status": "待人工查核原文",
+      "verification": "RSS 僅為新聞候選；尚未核對原文、技術數據或來源宣稱。"
+    }
   ],
+  "errors": [],
   "review_steps": [
     "逐一開啟原始報導，確認日期、產品型號和可核實事實",
     "校對繁體中文標題，去除不相關或重複消息",
